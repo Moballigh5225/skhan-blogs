@@ -1,4 +1,4 @@
-"use client";
+"use client"; // Since this is a client component
 import { useRecoilValue } from "recoil";
 import { parentState, loadingState } from "../atoms/parentAtom";
 import Link from "next/link";

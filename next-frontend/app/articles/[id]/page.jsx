@@ -1,5 +1,4 @@
 "use client"; // Since this is a client component
-
 import { useEffect, useState } from "react";
 import { useRecoilValue } from "recoil";
 import { parentState } from "../../atoms/parentAtom";
