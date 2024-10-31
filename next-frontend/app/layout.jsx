@@ -6,7 +6,7 @@ import { RecoilRoot } from "recoil";
 import { NextUIProvider } from "@nextui-org/react";
 import { Inter } from "next/font/google";
 import Layout from "./components/Layout"; // Your separate layout component
-import DataProvider from "./components/dataProvider";
+import DataProvider from "./components/DataProvider";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 
