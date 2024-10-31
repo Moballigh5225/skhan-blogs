@@ -22,6 +22,11 @@ const Navbar = () => {
     paddingBottom: "2px", // Adjust padding for better appearance
   };
 
+  // Helper function to capitalize the first letter of a string
+  const capitalizeFirstLetter = (string) => {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  };
+
   return (
     <nav className="sticky top-0 z-10" style={{ background: "white" }}>
       <div className="mx-auto px-4 sm:px-6 lg:px-8">
@@ -44,7 +49,11 @@ const Navbar = () => {
                 const linkText =
                   path === "/"
                     ? "Home"
-                    : path.split("/").pop().replace("-", " ");
+                    : path === "/review"
+                      ? "Book Review" // Set custom text for /review
+                      : capitalizeFirstLetter(
+                          path.split("/").pop().replace("-", " ")
+                        );
 
                 return (
                   <Link
@@ -92,7 +101,11 @@ const Navbar = () => {
                 const linkText =
                   path === "/"
                     ? "Home"
-                    : path.split("/").pop().replace("-", " ");
+                    : path === "/review"
+                      ? "Book Review" // Set custom text for /review
+                      : capitalizeFirstLetter(
+                          path.split("/").pop().replace("-", " ")
+                        );
 
                 return (
                   <Link
