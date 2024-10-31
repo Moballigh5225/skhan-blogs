@@ -1,0 +1,420 @@
+/* Add this to your globals.css */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Import fonts */
+@import url("https://fonts.googleapis.com/css?family=Merriweather:400,300,700&display=swap");
+@import url("https://fonts.googleapis.com/css?family=Montserrat:400,700&display=swap");
+
+/* Apply Fonts */
+/* body {
+  font-family: "Merriweather", serif;
+} */
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Montserrat", sans-serif;
+}
+
+.font-merriweather {
+  font-family: "Merriweather", serif;
+}
+
+/* Dark Mode Colors */
+/* @layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 0 0% 3.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 3.9%;
+    --primary: 0 0% 9%;
+    --primary-foreground: 0 0% 98%;
+    --muted: 0 0% 96.1%;
+    --muted-foreground: 0 0% 45.1%;
+  }
+
+  .dark {
+    --background: 0 0% 3.9%;
+    --foreground: 0 0% 98%;
+    --card: 0 0% 3.9%;
+    --card-foreground: 0 0% 98%;
+  }
+} */
+
+/* Global Dark Mode Background */
+/* body {
+  @apply bg-background text-foreground;
+} */
+
+/* Utility class for font size */
+@layer utilities {
+  .font-size-11px {
+    font-size: 11px;
+  }
+}
+
+/* Books Container Styling */
+.books-card-one {
+  border-radius: 20px;
+}
+.books-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.book-card {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 16px;
+  text-align: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s;
+}
+
+.book-card:hover {
+  transform: translateY(-4px);
+}
+
+.card-links a {
+  display: inline-block;
+  margin: 8px 0;
+  text-decoration: none;
+  color: blue;
+}
+
+/* Glassy Card Styling */
+.glass-card {
+  background: linear-gradient(
+    to bottom,
+    #f5f6f6 0%,
+    #dbdce2 21%,
+    #b8bac6 49%,
+    #dddfe3 80%,
+    #f5f6f6 100%
+  );
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+  padding: 20px;
+  transition: transform 0.2s ease;
+}
+
+.glass-card:hover {
+  transform: translateY(-5px);
+}
+
+/* Button Styling */
+.buy-now-button {
+  padding: 0.8em 2em;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  font-weight: 500;
+  color: #ffffff; /* White text */
+  background-color: #274289; /* Matching dark blue */
+  border: none;
+  border-radius: 45px;
+  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease 0s;
+  cursor: pointer;
+  outline: none;
+}
+
+.buy-now-button:hover {
+  background-color: #1a3169; /* Darker blue on hover */
+  box-shadow: 0px 15px 20px rgba(46, 229, 157, 0.4); /* Same hover effect */
+  color: #fff;
+  transform: translateY(-7px);
+}
+
+.buy-now-button:active {
+  transform: translateY(-1px);
+}
+
+/* Navbar Button Styling */
+.navbar-button {
+  padding: 1em 2em;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  font-weight: 500;
+  color: #000;
+  background-color: #fff;
+  border: none;
+  border-radius: 45px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease 0s;
+  cursor: pointer;
+  outline: none;
+}
+
+.navbar-button:hover {
+  background-color: #23c483;
+  box-shadow: 0px 8px 15px rgba(46, 229, 157, 0.4);
+  color: #fff;
+  transform: translateY(-3px);
+}
+
+.navbar-button:active {
+  transform: translateY(-1px);
+}
+
+/* Morph Card */
+.card-morph {
+  border-radius: 50px;
+  background: linear-gradient(145deg, #f0f0f0, #cacaca);
+  box-shadow:
+    20px 20px 60px #bebebe,
+    -20px -20px 60px #ffffff;
+}
+
+/* Gradient Background */
+/* body {
+  background: linear-gradient(to bottom, #7abcff 0%, #60abf8 44%, #4096ee 100%);
+} */
+/* .about-container {
+  border-top-left-radius: 250px;
+  border-bottom-left-radius: 250px;
+} */
+
+/* poetry ccss */
+.poem-container {
+  transition: opacity 0.3s ease-in-out;
+}
+
+.poem-card {
+  border-radius: 12px; /* Adjust the value as needed */
+  transition:
+    transform 0.3s ease-in-out,
+    background-color 0.3s ease-in-out; /* Ensure smooth transition */
+}
+
+.poem-card:hover {
+  transform: scale(1.05); /* Scale up effect on hover */
+  background-color: #e5e7eb; /* Light gray background on hover */
+}
+
+.fade-in {
+  opacity: 1;
+}
+
+.fade-out {
+  opacity: 0;
+}
+
+/* navigation button css */
+.prev-button,
+.next-button {
+  padding: 0.8em 2em;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  font-weight: 500;
+  color: #ffffff; /* White text */
+  background-color: #274289; /* Matching dark blue */
+  border: none;
+  border-radius: 45px;
+  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease 0s;
+  cursor: pointer;
+  outline: none;
+}
+
+.prev-button:hover,
+.next-button:hover {
+  background-color: #1a3169; /* Darker blue on hover */
+  box-shadow: 0px 15px 20px rgba(46, 229, 157, 0.4); /* Same hover effect */
+  color: #fff;
+  transform: translateY(-7px);
+}
+
+.prev-button:active,
+.next-button:active {
+  transform: translateY(-1px);
+}
+
+/* loader spin card css */
+.animate-spin {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+/* modal css */
+
+/* Modal Styles */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent background */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000; /* Make sure it appears above other elements */
+}
+
+.modal-content {
+  background-color: #ffffff; /* White background for modal */
+  border-radius: 8px;
+  padding: 24px;
+  max-width: 70vw; /* Set to 70% of the viewport width */
+  max-height: 70vh; /* Set to 70% of the viewport height */
+  width: 90%; /* Full width on smaller screens */
+  text-align: right; /* Align text to the right for Urdu */
+  position: relative; /* For close button positioning */
+  overflow-y: auto; /* Scroll if content exceeds max-height */
+}
+
+.close-button {
+  position: absolute;
+  top: 16px; /* Adjust as necessary */
+  left: 16px; /* Change this to left for top-left positioning */
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 24px; /* Size of the close icon */
+  color: #333; /* Color of the close icon */
+}
+
+/* Line Styles */
+.line {
+  display: flex;
+  flex-direction: column; /* Stack lines vertically */
+  margin: 16px 0; /* Space between lines */
+}
+
+.line span {
+  margin-bottom: 8px; /* Space between lines */
+  text-align: right; /* Align text to the right for Urdu */
+  font-weight: bold; /* Make text bold */
+}
+
+/* Adjusting for odd/even lines */
+.line span:nth-child(odd) {
+  text-align: right; /* Right-aligned for odd lines */
+}
+
+.line span:nth-child(even) {
+  text-align: left; /* Left-aligned for even lines */
+}
+
+/* globals.css or your CSS module */
+
+article {
+  --img-scale: 1.001;
+  --title-color: black;
+  --link-icon-translate: -20px;
+  --link-icon-opacity: 0;
+  position: relative;
+  border-radius: 16px;
+  box-shadow: none;
+  background: #fff;
+  transform-origin: center;
+  transition: all 0.4s ease-in-out;
+  overflow: hidden;
+}
+
+article a::after {
+  position: absolute;
+  inset-block: 0;
+  inset-inline: 0;
+  cursor: pointer;
+  content: "";
+}
+
+/* basic article elements styling */
+article h2 {
+  margin: 0 0 18px 0;
+  font-family: "Bebas Neue", cursive;
+  font-size: 1.9rem;
+  letter-spacing: 0.06em;
+  color: var(--title-color);
+  transition: color 0.3s ease-out;
+}
+
+figure {
+  margin: 0;
+  padding: 0;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+}
+
+article img {
+  max-width: 100%;
+  transform-origin: center;
+  transform: scale(var(--img-scale));
+  transition: transform 0.4s ease-in-out;
+}
+
+.article-body {
+  padding: 24px;
+}
+
+article a {
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+  color: #28666e;
+}
+
+article a:focus {
+  outline: 1px dotted #28666e;
+}
+
+article a .icon {
+  min-width: 24px;
+  width: 24px;
+  height: 24px;
+  margin-left: 5px;
+  transform: translateX(var(--link-icon-translate));
+  opacity: var(--link-icon-opacity);
+  transition: all 0.3s;
+}
+
+article:has(:hover, :focus) {
+  --img-scale: 1.1;
+  --title-color: #28666e;
+  --link-icon-translate: 0;
+  --link-icon-opacity: 1;
+  box-shadow:
+    rgba(0, 0, 0, 0.16) 0px 10px 36px 0px,
+    rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
+}
+
+/* Other styles remain as you provided */
+.back {
+  border: 1px solid black;
+  border-radius: 8px;
+  padding: 8px;
+  color: black;
+  text-decoration: none;
+  margin-bottom: 8px;
+  transition: transform 0.3s ease-in-out;
+}
+
+.back:hover {
+  transform: scale(1.1);
+}
+
+.homepage btn {
+  padding: 0.5rem 1rem;
+  background-color: #111;
+  color: white;
+  border-radius: 0.5rem;
+}
