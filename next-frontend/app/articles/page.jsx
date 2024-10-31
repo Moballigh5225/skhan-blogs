@@ -1,9 +1,9 @@
 "use client";
 import { useRecoilValue } from "recoil";
-import { parentState, loadingState } from "../../atoms/parentAtom";
+import { parentState, loadingState } from "../atoms/parentAtom";
 import Link from "next/link";
 import Image from "next/image";
-import SkeletonLoader from "../../components/SkeletonLoader";
+import SkeletonLoader from "../components/SkeletonLoader";
 
 const Articles = () => {
   const { articles } = useRecoilValue(parentState);
@@ -86,7 +86,7 @@ const Articles = () => {
                 <span className="font-bold">Published Date:</span>{" "}
                 {formattedDate}
               </p>
-              <Link href={`/pages/articles/${article._id}`}>
+              <Link href={`/articles/${article._id}`}>
                 <span className="buy-now-button inline-flex items-center text-black hover:bg-gray-800 transition-colors duration-300 px-4 py-2 rounded mt-4">
                   Read More
                   <svg

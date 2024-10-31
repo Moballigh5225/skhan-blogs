@@ -1,8 +1,8 @@
 "use client"; // Ensure this is a client component
 import { useRecoilValue } from "recoil";
-import { parentState } from "../../atoms/parentAtom";
+import { parentState } from "../atoms/parentAtom";
 import Image from "next/image";
-import TextSkeletonLoader from "../../components/TextSkeletonLoader";
+import TextSkeletonLoader from "../components/TextSkeletonLoader";
 
 const About = () => {
   const data = useRecoilValue(parentState); // Get the data from Recoil state

@@ -2,9 +2,9 @@
 // Poetry.js
 import React, { useState, useEffect } from "react";
 import { useRecoilValue, useRecoilState } from "recoil";
-import { parentState } from "../../atoms/parentAtom"; // Adjust the path if necessary
-import { modalState } from "../../atoms/modalAtom"; // Adjust the path if necessary
-import Modal from "../../components/Modal"; // Adjust the path if necessary
+import { parentState } from "../atoms/parentAtom"; // Adjust the path if necessary
+import { modalState } from "../atoms/modalAtom"; // Adjust the path if necessary
+import Modal from "../components/Modal"; // Adjust the path if necessary
 
 const Poetry = () => {
   const { poetry } = useRecoilValue(parentState);

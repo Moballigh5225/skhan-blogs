@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useRecoilValue } from "recoil";
-import { parentState } from "../../../atoms/parentAtom"; // Adjust the import as necessary
+import { parentState } from "../../atoms/parentAtom"; // Adjust the import as necessary
 import Image from "next/image";
 import Link from "next/link";
 
@@ -54,7 +54,7 @@ const ReviewDetailPage = ({ params }) => {
   return (
     <div className="container mx-auto py-4 px-2 md:px-4 lg:px-8">
       {/* Back Button - Hidden on mobile view */}
-      <Link href="/pages/review" className=" mb-4">
+      <Link href="/review" className=" mb-4">
         <span className="hidden buy-now-button md:inline-flex items-center text-white   transition-colors duration-300 px-4 py-2 rounded mt-4">
           ← Back
         </span>
@@ -129,7 +129,7 @@ const ReviewDetailPage = ({ params }) => {
                     </p>
                   )}
                   <Link
-                    href={`/pages/review/${bookReview._id}`}
+                    href={`/review/${bookReview._id}`}
                     className="read-more"
                   >
                     Read More

@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useRecoilValue } from "recoil";
-import { parentState } from "../../../atoms/parentAtom";
+import { parentState } from "../../atoms/parentAtom";
 import Link from "next/link";
 import Image from "next/image";
 
@@ -55,7 +55,7 @@ const ArticleDetailPage = ({ params }) => {
 
   return (
     <div className="container mx-auto py-4 px-2 md:px-4 lg:px-8">
-      <Link href="/pages/articles" className="mb-4">
+      <Link href="/articles" className="mb-4">
         <span className="hidden buy-now-button md:inline-flex items-center text-white transition-colors duration-300 px-4 py-2 rounded mt-4">
           ← Back
         </span>

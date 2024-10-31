@@ -1,9 +1,9 @@
 "use client";
 
 import { useRecoilValue } from "recoil";
-import { parentState } from "../../atoms/parentAtom";
+import { parentState } from "../atoms/parentAtom";
 import Image from "next/image";
-import SkeletonLoader from "../../components/SkeletonLoader";
+import SkeletonLoader from "../components/SkeletonLoader";
 
 const Books = () => {
   const { books } = useRecoilValue(parentState);
