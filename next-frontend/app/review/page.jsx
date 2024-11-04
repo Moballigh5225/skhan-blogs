@@ -32,12 +32,12 @@ const Review = () => {
   }
 
   return (
-    <div className="container  mx-auto flex flex-col justify-start py-4 px-2 md:px-4 lg:px-8">
-      <div className="grid  grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+    <div className="container mx-auto flex flex-col justify-start py-4 px-2 md:px-4 lg:px-8">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
         {bookReviews.map((bookReview) => (
           <article
             key={bookReview._id}
-            className="article shadow-lg  p-4 bg-white border border-gray-200"
+            className="article shadow-lg bg-white border border-gray-200 p-4 mx-2 md:mx-4 lg:mx-0"
           >
             {bookReview.coverImage && (
               <div className="flex justify-center mb-4">
@@ -50,37 +50,42 @@ const Review = () => {
                 />
               </div>
             )}
-            <h3 className="text-lg font-semibold text-center mb-2">
+            <h3 className="text-lg font-semibold text-yellow-500 mb-2">
+              {" "}
+              {/* Changed color to golden */}
               {bookReview.title}
             </h3>
-            <p className="text-sm text-center flex items-center justify-center  text-gray-600 mb-1">
-              <p className="font-bold">Author</p>: {bookReview.author}
+            <p className="text-sm flex items-center text-gray-600 mb-1">
+              <span className="font-bold">Author:</span> {bookReview.author}
             </p>
             {bookReview.reviewedBy && (
-              <p className="text-sm text-center flex items-center justify-center text-gray-600 mb-2">
-                <p className="font-bold">Reviewed By</p>:{" "}
+              <p className="text-sm flex items-center text-gray-600 mb-2">
+                <span className="font-bold">Reviewed By:</span>{" "}
                 {bookReview.reviewedBy.name}
               </p>
             )}
-            <Link href={`/review/${bookReview._id}`}>
-              <span className="buy-now-button inline-flex items-center text-black  hover:bg-gray-800 transition-colors duration-300 px-4 py-2 rounded mt-4">
-                Read More
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="icon ml-2"
-                  viewBox="0 0 20 20"
-                  fill="currentColor"
-                  width="1em"
-                  height="1em"
-                >
-                  <path
-                    fillRule="evenodd"
-                    d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z"
-                    clipRule="evenodd"
-                  />
-                </svg>
-              </span>
-            </Link>
+            <div className="flex justify-between items-center mt-4">
+              <div className="flex-1"></div>
+              <Link href={`/review/${bookReview._id}`}>
+                <span className="buy-now-button inline-flex items-center text-black hover:bg-gray-800 transition-colors duration-300 px-4 py-2 rounded">
+                  Read More
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="icon ml-2 hidden md:inline"
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                    width="1em"
+                    height="1em"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z"
+                      clipRule="evenodd"
+                    />
+                  </svg>
+                </span>
+              </Link>
+            </div>
           </article>
         ))}
       </div>

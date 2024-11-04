@@ -17,12 +17,13 @@ const ReviewDetailPage = ({ params }) => {
       setReview(foundReview);
     }
   }, [id, bookReviews]);
+
   const Loader = () => (
     <div className="flex justify-center items-center h-20">
       <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-gray-900"></div>
     </div>
   );
-  // Optional: Show a loading state while waiting for data
+
   if (!review) {
     return <Loader />;
   }
@@ -52,38 +53,39 @@ const ReviewDetailPage = ({ params }) => {
   ).slice(0, 3);
 
   return (
-    <div className="container mx-auto py-4 px-2 md:px-4 lg:px-8">
+    <div className="container mx-auto py-4 px-4 md:px-8 lg:px-12">
       {/* Back Button - Hidden on mobile view */}
-      <Link href="/review" className=" mb-4">
-        <span className="hidden buy-now-button md:inline-flex items-center text-white   transition-colors duration-300 px-4 py-2 rounded mt-4">
+      <Link href="/review" className="mb-4">
+        <span className="hidden buy-now-button md:inline-flex items-center text-white transition-colors duration-300 px-4 py-2 rounded mt-4">
           ← Back
         </span>
       </Link>
 
       <h1 className="text-2xl font-bold mb-4 text-center">{title}</h1>
-      <div className="space-y-2">
-        <p>
+
+      <div className="space-y-2 px-2 md:px-4 lg:px-6">
+        <p className="text-justify">
           <strong>Author:</strong> {author}
         </p>
-        <p>
+        <p className="text-justify">
           <strong>Edition:</strong> {edition}
         </p>
-        <p>
+        <p className="text-justify">
           <strong>Published By:</strong> {publishedBy}
         </p>
-        <p>
+        <p className="text-justify">
           <strong>Reviewed By:</strong> {reviewedBy.name}
         </p>
-        <p>
+        <p className="text-justify">
           <strong>Total Pages:</strong> {totalPages}
         </p>
       </div>
 
-      <div className="mt-4">
+      <div className="mt-4 px-2 md:px-4 lg:px-6">
         {content.map((block) => {
           const { _key, children } = block;
           return (
-            <div key={_key} className="mb-2">
+            <div key={_key} className="mb-2 text-justify">
               {children.map((child, index) => {
                 const { text, marks } = child;
                 const isBold = marks.includes("strong");
@@ -142,7 +144,7 @@ const ReviewDetailPage = ({ params }) => {
                     >
                       <path
                         fillRule="evenodd"
-                        d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z"
+                        d="M12.293 5.293a1 1 0 011.414 0l4 4a 1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z"
                         clipRule="evenodd"
                       />
                     </svg>
@@ -153,41 +155,8 @@ const ReviewDetailPage = ({ params }) => {
           ))}
         </div>
       ) : (
-        <p>No other reviews available.</p> // Message when there are no other reviews
+        <p>No other reviews available.</p>
       )}
-
-      <style jsx>{`
-        .container {
-          width: 100%; /* Default width to 100% */
-        }
-        @media (min-width: 1280px) {
-          .container {
-          }
-        }
-        h1 {
-          text-align: center; /* Center the title */
-        }
-        p {
-          text-align: justify; /* Justify the text for equal length on the right */
-        }
-        .back-button {
-          display: inline-flex;
-          align-items: center;
-          text-decoration: none;
-          color: #fff; /* Change text color to white */
-          background-color: black; /* Set background color to black */
-          padding: 10px 15px;
-          border-radius: 5px;
-          transition:
-            background-color 0.3s ease,
-            transform 0.3s ease;
-          margin-bottom: 20px; /* Add margin below the button */
-        }
-        .back-button:hover {
-          background-color: #333; /* Change background on hover */
-          transform: scale(1.05); /* Scale effect on hover */
-        }
-      `}</style>
     </div>
   );
 };

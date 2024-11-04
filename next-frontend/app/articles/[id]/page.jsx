@@ -72,29 +72,33 @@ const ArticleDetailPage = ({ params }) => {
           />
         </div>
       )}
-      <div className="space-y-2">
+
+      {/* Wrap Author and Published Date in the same container as content */}
+      <div className="space-y-1 mb-4 max-w-2xl mx-auto px-4 text-left">
         <p>
-          <strong>Author:</strong> {author.name}{" "}
-          {/* Updated to access author name */}
+          <strong>Author:</strong> {author.name}
         </p>
         <p>
-          <strong>Published Date:</strong> {formattedDate}{" "}
-          {/* Formatted published date */}
+          <strong>Published Date:</strong> {formattedDate}
         </p>
       </div>
 
-      <div className="mt-4">
+      <div className="mt-4 max-w-2xl mx-auto px-4">
         {content.map((block) => {
           const { _key, children } = block;
           return (
-            <div key={_key} className="mb-2">
+            <div key={_key} className="mb-4">
               {children.map((child, index) => {
                 const { text, marks } = child;
                 const isBold = marks.includes("strong");
-                return (
-                  <span key={index} className={isBold ? "font-bold" : ""}>
+                return isBold ? (
+                  <p key={index} className="font-bold text-justify">
                     {text}
-                  </span>
+                  </p>
+                ) : (
+                  <p key={index} className="text-justify">
+                    {text}
+                  </p>
                 );
               })}
             </div>

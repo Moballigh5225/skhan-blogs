@@ -13,6 +13,12 @@ const Navbar = () => {
     setIsOpen(!isOpen);
   };
 
+  // New function to handle link click and close the menu
+  const handleLinkClick = (path) => {
+    setIsOpen(false); // Close the menu
+    router.push(path); // Navigate to the path
+  };
+
   // Function to check if the link is active
   const isActive = (path) => router.pathname === path;
 
@@ -31,15 +37,17 @@ const Navbar = () => {
     <nav className="sticky top-0 z-10" style={{ background: "white" }}>
       <div className="mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
-          {/* Logo on the left for smaller screens */}
+          {/* Logo with Home link for smaller screens */}
           <div className="flex-shrink-0 md:hidden">
-            <Image
-              src="/images/urdualphabet.svg"
-              width={40}
-              height={40}
-              alt="Logo"
-              style={{ transform: "rotate(-90deg)" }}
-            />
+            <Link href="/" passHref>
+              <Image
+                src="/images/urdualphabet.svg"
+                width={40}
+                height={40}
+                alt="Logo"
+                style={{ transform: "rotate(-90deg)" }}
+              />
+            </Link>
           </div>
 
           {/* Desktop Menu */}
@@ -61,6 +69,7 @@ const Navbar = () => {
                     href={path}
                     style={isActive(path) ? activeStyle : {}}
                     className="text-gray-800 font-bold transition-transform duration-300 ease-out transform hover:scale-105 border-b-2 border-transparent"
+                    onClick={() => handleLinkClick(path)} // Use new handler
                   >
                     {linkText}
                   </Link>
@@ -79,15 +88,17 @@ const Navbar = () => {
             </button>
           </div>
 
-          {/* Logo on the right for larger screens */}
-          <div className="flex-shrink-0 ml-auto hidden md:block">
-            <Image
-              src="/images/urdualphabet.svg"
-              width={40}
-              height={40}
-              alt="Logo"
-              style={{ transform: "rotate(-90deg)" }}
-            />
+          {/* Logo with Home link for larger screens */}
+          <div className="flex-shrink-0 ml-auto hidden md:block cursor-pointer">
+            <Link href="/" passHref>
+              <Image
+                src="/images/urdualphabet.svg"
+                width={40}
+                height={40}
+                alt="Logo"
+                style={{ transform: "rotate(-90deg)" }}
+              />
+            </Link>
           </div>
         </div>
       </div>
@@ -113,6 +124,7 @@ const Navbar = () => {
                     href={path}
                     style={isActive(path) ? activeStyle : {}}
                     className="block text-gray-800 font-bold transition-transform duration-300 ease-out transform hover:scale-105 border-b-2 border-transparent px-3 py-2 rounded-md text-base"
+                    onClick={() => handleLinkClick(path)} // Use new handler
                   >
                     {linkText}
                   </Link>
