@@ -1,4 +1,3 @@
-// app/layout.js
 "use client"; // This file is for client components
 
 import "./globals.css"; // Importing global styles
@@ -21,6 +20,11 @@ const RootLayout = ({ children }) => {
           <head>
             <title>Shabbir Blog</title>
             <meta name="description" content="Shabbir Blog" />
+            {/* Add the font import here */}
+            <link
+              href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu&display=swap"
+              rel="stylesheet"
+            />
           </head>
           <body>
             <NextUIProvider>

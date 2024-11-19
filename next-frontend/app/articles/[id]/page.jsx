@@ -1,4 +1,4 @@
-"use client"; // Since this is a client component
+"use client";
 import { useEffect, useState } from "react";
 import { useRecoilValue } from "recoil";
 import { parentState } from "../../atoms/parentAtom";
@@ -27,9 +27,9 @@ const ArticleDetailPage = ({ params }) => {
     return <Loader />;
   }
 
-  const { title, author, content, coverImage, day, month, year } = article;
+  const { title, author, content, coverImage, day, month, year, file } =
+    article;
 
-  // Construct the published date
   const monthMapping = {
     January: 0,
     February: 1,
@@ -52,17 +52,37 @@ const ArticleDetailPage = ({ params }) => {
     day: "numeric",
   });
 
-  return (
-    <div className="container mx-auto py-4 px-2 md:px-4 lg:px-8">
-      <Link href="/articles" className="mb-4">
-        <span className="hidden buy-now-button md:inline-flex items-center text-white transition-colors duration-300 px-4 py-2 rounded mt-4">
-          ← Back
-        </span>
-      </Link>
+  const isUrduContent = (text) => /[\u0600-\u06FF]/.test(text);
 
-      <h1 className="text-2xl font-bold mb-4 text-center">{title}</h1>
+  const isUrdu = content.some((block) =>
+    block.children.some((child) => isUrduContent(child.text))
+  );
+
+  return (
+    <div className="w-full mx-auto py-4 px-4 md:px-8 lg:px-12">
+      <div className="flex justify-between mb-6">
+        {/* Back button - Hidden on mobile */}
+        <Link href="/articles">
+          <span className="hidden sm:inline-block buy-now-button items-center text-white transition-colors duration-300 px-4 py-2 rounded mt-4">
+            ← Back
+          </span>
+        </Link>
+
+        {/* Download Button - Original UI */}
+        {file?.asset?.url && (
+          <a
+            href={file.asset.url}
+            download
+            className="buy-now-button items-center text-white transition-colors duration-300 px-4 py-2 rounded mt-4"
+          >
+            Download File
+          </a>
+        )}
+      </div>
+
+      <h1 className="text-2xl font-bold mb-6 text-center">{title}</h1>
       {coverImage && (
-        <div className="flex justify-center mb-4">
+        <div className="flex justify-center mb-6">
           <Image
             src={coverImage.asset.url}
             alt={coverImage.alt || "Article Cover"}
@@ -73,8 +93,8 @@ const ArticleDetailPage = ({ params }) => {
         </div>
       )}
 
-      {/* Wrap Author and Published Date in the same container as content */}
-      <div className="space-y-1 mb-4 max-w-2xl mx-auto px-4 text-left">
+      {/* Article Metadata */}
+      <div className="space-y-2 mb-6 px-4 text-left">
         <p>
           <strong>Author:</strong> {author.name}
         </p>
@@ -83,20 +103,35 @@ const ArticleDetailPage = ({ params }) => {
         </p>
       </div>
 
-      <div className="mt-4 max-w-2xl mx-auto px-4">
+      {/* Content Rendering */}
+      <div
+        className={`mt-6 px-4 ${isUrdu ? "is-urdu" : ""}`}
+        style={{
+          direction: isUrdu ? "rtl" : "ltr",
+          wordWrap: "break-word",
+          overflowWrap: "break-word",
+        }}
+      >
         {content.map((block) => {
           const { _key, children } = block;
           return (
-            <div key={_key} className="mb-4">
+            <div key={_key} className="mb-6">
               {children.map((child, index) => {
                 const { text, marks } = child;
                 const isBold = marks.includes("strong");
+
                 return isBold ? (
-                  <p key={index} className="font-bold text-justify">
+                  <p
+                    key={index}
+                    className={`font-bold ${isUrdu ? "leading-8" : "leading-relaxed"}`}
+                  >
                     {text}
                   </p>
                 ) : (
-                  <p key={index} className="text-justify">
+                  <p
+                    key={index}
+                    className={`${isUrdu ? "leading-8" : "leading-relaxed"}`}
+                  >
                     {text}
                   </p>
                 );

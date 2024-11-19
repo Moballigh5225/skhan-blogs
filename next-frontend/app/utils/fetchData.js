@@ -9,6 +9,7 @@ const client = createClient({
 
 export const fetchData = async () => {
   try {
+    // Fetch books
     const books = await client.fetch(`
       *[_type == "book"]{
         _id,
@@ -33,6 +34,7 @@ export const fetchData = async () => {
       }
     `);
 
+    // Fetch poetry
     const poetry = await client.fetch(`
       *[_type == "poetry"]{
         _id,
@@ -50,6 +52,7 @@ export const fetchData = async () => {
       }
     `);
 
+    // Fetch book reviews
     const bookReviews = await client.fetch(`
       *[_type == "bookReview"]{
         _id,
@@ -68,6 +71,7 @@ export const fetchData = async () => {
       }
     `);
 
+    // Fetch articles and include file upload field
     const articles = await client.fetch(`
       *[_type == "articles"]{
         _id,
@@ -83,6 +87,11 @@ export const fetchData = async () => {
         },
         "content": content[]{
           ...,
+        },
+        "file": file { // Fetch the file link
+          asset->{
+            url
+          }
         }
       }
     `);

@@ -58,5 +58,12 @@ export default defineType({
       type: 'number',
       validation: (Rule) => Rule.required().min(1900).max(new Date().getFullYear()),
     }),
+    // Adding the file upload field
+    defineField({
+      name: 'file',
+      title: 'Upload PDF/Docx',
+      type: 'file', // file type to upload documents like PDF or DOCX
+      validation: (Rule) => Rule.required(),
+    }),
   ],
 })
