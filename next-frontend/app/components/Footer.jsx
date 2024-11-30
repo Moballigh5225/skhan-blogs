@@ -7,7 +7,7 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-3 xl:grid-cols-3 gap-8">
           <div>
             <h1 className="text-3xl font-bold mb-4">شبير عالم خان</h1>
-            <h2 className="text-2xl font-bold mb-4">SHABBIR ALAM KHAN</h2>
+            {/* <h2 className="text-2xl font-bold mb-4">SHABBIR ALAM KHAN</h2> */}
             {/* <p className="text-gray-400 leading-relaxed">
               IS A PROMINENT INDIAN MOTIVATIONAL SPEAKER BUT ALSO A REFORMER,
               GREAT CONTEMPORARY TEACHER, LIFE COACH, AND A CORPORATE TRAINER.
@@ -86,9 +86,9 @@ const Footer = () => {
           </div>
         </div>
 
-        <div className="  border-gray-700 mt-6 pt-4 text-center text-gray-600 text-sm">
+        {/* <div className="  border-gray-700 mt-6 pt-4 text-center text-gray-600 text-sm">
           &copy; {new Date().getFullYear()} All rights reserved.
-        </div>
+        </div> */}
       </div>
     </footer>
   );

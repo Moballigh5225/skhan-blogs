@@ -1,16 +1,17 @@
-import Brands from "./components/Brand";
+import Content from "./components/Content";
 import Contact from "./components/Contact";
 import Header from "./components/Header";
 import Hero from "./components/Hero";
-import Services from "./components/Services";
-
+import Featured from "./components/Featured";
+import NewsPaper from "./components/Newspaper";
 export default function Page() {
   return (
-    <div className="bg-gray-50">
+    <div className="">
       <Hero />
-      <Brands />
-      <Services />
+      <Content />
+      <Featured />
       <Contact />
+      <NewsPaper />
     </div>
   );
 }

@@ -115,7 +115,7 @@ const ArticleDetailPage = ({ params }) => {
         {content.map((block) => {
           const { _key, children } = block;
           return (
-            <div key={_key} className="mb-6">
+            <div key={_key} className="">
               {children.map((child, index) => {
                 const { text, marks } = child;
                 const isBold = marks.includes("strong");
