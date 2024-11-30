@@ -28,7 +28,7 @@ const RootLayout = ({ children }) => {
           </head>
           <body>
             <NextUIProvider>
-              <div className="flex flex-col justify-between min-h-screen bg-white">
+              <div className="flex flex-col justify-start min-h-screen bg-white">
                 <Navbar />
                 {children}
                 <Footer />
