@@ -4,6 +4,28 @@
 @tailwind utilities;
 
 /* Hide scrollbar but keep scrolling functionality */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+/* Timeline fade-in on tab switch */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.animate-fade-in {
+  animation: fadeInUp 0.35s ease-out both;
+}
 
 /* Import fonts */
 @import url("https://fonts.googleapis.com/css?family=Merriweather:400,300,700&display=swap");

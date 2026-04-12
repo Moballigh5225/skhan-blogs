@@ -1,13 +1,19 @@
-import Contact from "./components/Contact";
 import Hero from "./components/Hero";
-import NewsPaper from "./components/Newspaper";
+import HomeFeaturedWritings from "./components/HomeFeaturedWritings";
+import HomeLatestPosts from "./components/HomeLatestPosts";
+import HomeAboutPreview from "./components/HomeAboutPreview";
+import HomeBooksSection from "./components/HomeBooksSection";
+import HomeVideoSection from "./components/HomeVideoSection";
 
 export default function Page() {
   return (
-    <div className="">
+    <div>
       <Hero />
-      <Contact />
-      <NewsPaper />
+      <HomeFeaturedWritings />
+      <HomeLatestPosts />
+      <HomeAboutPreview />
+      <HomeBooksSection />
+      <HomeVideoSection />
     </div>
   );
 }

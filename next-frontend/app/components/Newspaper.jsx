@@ -14,7 +14,7 @@ const NewsletterSignup = () => {
   };
 
   return (
-    <section className="bg-black border-t border-gray-800">
+    <section className="bg-[#0a0a0a]">
       <div className="max-w-6xl mx-auto px-6 py-16 md:py-20">
         <h2 className="text-2xl md:text-3xl font-bold text-white mb-3">
           Stay Updated
