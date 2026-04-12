@@ -1,5 +1,4 @@
 "use client";
-// Poetry.js
 import React, { useState } from "react";
 import { useRecoilValue, useRecoilState } from "recoil";
 import { parentState, loadingState } from "../atoms/parentAtom";
@@ -7,10 +6,10 @@ import { modalState } from "../atoms/modalAtom";
 import Modal from "../components/Modal";
 
 const PoetrySkeletonLoader = () => (
-  <div className="animate-pulse bg-gray-100 p-4 shadow-md mb-4 w-4/5 mx-auto rounded">
-    <div className="h-5 bg-gray-300 rounded w-2/3 ml-auto mb-3" />
-    <div className="h-3 bg-gray-200 rounded w-1/3 ml-auto" />
-    <div className="h-3 bg-gray-200 rounded w-1/4 mt-6" />
+  <div className="animate-pulse border border-gray-200 p-4 mb-3 w-4/5 mx-auto">
+    <div className="h-4 bg-gray-200 rounded w-2/3 ml-auto mb-3" />
+    <div className="h-3 bg-gray-100 rounded w-1/3 ml-auto" />
+    <div className="h-3 bg-gray-100 rounded w-1/4 mt-6" />
   </div>
 );
 
@@ -19,7 +18,7 @@ const Poetry = () => {
   const loading = useRecoilValue(loadingState);
   const [currentPage, setCurrentPage] = useState(1);
   const [fade, setFade] = useState(false);
-  const [modalContent, setModalContent] = useRecoilState(modalState);
+  const [, setModalContent] = useRecoilState(modalState);
 
   const itemsPerPage = 10;
   const totalPages = Math.ceil(poetry.length / itemsPerPage);
@@ -47,80 +46,79 @@ const Poetry = () => {
 
   const formatDate = (day, month, year) => {
     const suffix =
-      day % 10 === 1 && day !== 11
-        ? "st"
-        : day % 10 === 2 && day !== 12
-          ? "nd"
-          : day % 10 === 3 && day !== 13
-            ? "rd"
-            : "th";
+      day % 10 === 1 && day !== 11 ? "st"
+        : day % 10 === 2 && day !== 12 ? "nd"
+        : day % 10 === 3 && day !== 13 ? "rd"
+        : "th";
     return `${day}${suffix} ${month}, ${year}`;
   };
 
-  const handleOpenModal = (poem) => {
-    setModalContent(poem);
-  };
-
   return (
-    <div className="flex flex-col justify-between flex-1 p-8 text-right rtl">
-      <h1 className="text-2xl font-bold">شعر و شاعری</h1>
-      <div className={`mt-4 poem-container ${fade ? "fade-out" : "fade-in"}`}>
-        {loading ? (
-          Array.from({ length: 5 }).map((_, i) => <PoetrySkeletonLoader key={i} />)
-        ) : currentPoems.length > 0 ? (
-          currentPoems.map((currentPoem) => (
-            <div
-              key={currentPoem._id}
-              className="bg-gray-100 p-4 shadow-md relative mb-4 w-4/5 mx-auto poem-card cursor-pointer transition-transform duration-300 transform hover:scale-105"
-              onClick={() => handleOpenModal(currentPoem)}
-            >
-              <h2 className="text-lg font-semibold">{currentPoem.title}</h2>
-              <p className="text-sm text-gray-600">
-                Author: {currentPoem.author?.name || "Unknown Author"}
-              </p>
-              <p className="absolute bottom-2 left-2 text-xs text-gray-500">
-                {formatDate(
-                  currentPoem.day,
-                  currentPoem.month,
-                  currentPoem.year
-                )}
-              </p>
+    <div className="bg-white min-h-screen">
+      <div className="max-w-6xl mx-auto px-6 py-16">
+
+        <h1 className="text-2xl md:text-3xl font-bold text-black mb-10 text-right" dir="rtl">
+          شعر و شاعری
+        </h1>
+
+        <div className={`poem-container ${fade ? "fade-out" : "fade-in"}`}>
+          {loading ? (
+            Array.from({ length: 5 }).map((_, i) => (
+              <PoetrySkeletonLoader key={i} />
+            ))
+          ) : currentPoems.length > 0 ? (
+            currentPoems.map((poem) => (
+              <div
+                key={poem._id}
+                className="border border-gray-200 p-4 mb-3 w-4/5 mx-auto cursor-pointer hover:border-gray-400 transition-colors duration-200 text-right"
+                dir="rtl"
+                onClick={() => setModalContent(poem)}
+              >
+                <h2 className="text-base font-semibold text-black mb-1">
+                  {poem.title}
+                </h2>
+                <p className="text-xs text-gray-500">
+                  {poem.author?.name || "Unknown Author"}
+                </p>
+                <p className="text-xs text-gray-400 mt-4 text-left" dir="ltr">
+                  {formatDate(poem.day, poem.month, poem.year)}
+                </p>
+              </div>
+            ))
+          ) : (
+            <div className="flex flex-col items-center justify-center py-20 text-gray-400">
+              <p className="text-3xl mb-4">📜</p>
+              <p className="text-base font-medium" dir="rtl">ابھی کوئی شعر موجود نہیں</p>
+              <p className="text-sm mt-1">No poetry has been added yet.</p>
             </div>
-          ))
-        ) : (
-          <div className="flex flex-col items-center justify-center py-16 text-gray-400">
-            <p className="text-4xl mb-4">📜</p>
-            <p className="text-lg font-medium">ابھی کوئی شعر موجود نہیں</p>
-            <p className="text-sm mt-1">No poetry has been added yet.</p>
+          )}
+        </div>
+
+        {/* Pagination */}
+        {!loading && totalPages > 1 && (
+          <div className="flex justify-center items-center gap-6 mt-10">
+            <button
+              onClick={handlePrevious}
+              disabled={currentPage === 1}
+              className="prev-button"
+            >
+              Previous
+            </button>
+            <span className="text-sm text-gray-500">
+              {currentPage} of {totalPages}
+            </span>
+            <button
+              onClick={handleNext}
+              disabled={currentPage === totalPages}
+              className="next-button"
+            >
+              Next
+            </button>
           </div>
         )}
+
       </div>
 
-      <div className="mt-4 mb-4">
-        <div className="flex justify-center">
-          <button
-            onClick={handlePrevious}
-            disabled={currentPage === 1}
-            className="prev-button mx-2"
-          >
-            Previous
-          </button>
-          <span className="mx-4">
-            {currentPage} of {totalPages}
-          </span>
-          <button
-            onClick={handleNext}
-            disabled={currentPage === totalPages}
-            className="next-button mx-2"
-          >
-            Next
-          </button>
-        </div>
-      </div>
-
-      <div className="mb-8"></div>
-
-      {/* Modal Component */}
       <Modal />
     </div>
   );

@@ -1,5 +1,4 @@
 "use client";
-
 import { useState } from "react";
 import emailjs from "emailjs-com";
 
@@ -25,126 +24,108 @@ const ContactUs = () => {
     const userID = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY;
 
     emailjs.sendForm(serviceID, templateID, e.target, userID).then(
-      (response) => {
-        setStatus("Message Sent Successfully!");
-        setFormData({
-          name: "",
-          email: "",
-          subject: "",
-          message: "",
-        });
+      () => {
+        setStatus("Message sent successfully.");
+        setFormData({ name: "", email: "", subject: "", message: "" });
       },
-      (error) => {
-        setStatus("Error Sending Message. Please Try Again.");
+      () => {
+        setStatus("Failed to send. Please try again.");
       }
     );
   };
 
   return (
-    <section className="py-16 bg-gray-100">
-      <div className="container mx-auto px-6 text-center">
-        <h2 className="text-3xl sm:text-4xl font-semibold mb-4 text-gray-800">
+    <section id="contact" className="bg-black border-t border-gray-800">
+      <div className="max-w-6xl mx-auto px-6 py-16 md:py-20">
+        <h2 className="text-2xl md:text-3xl font-bold text-white mb-3">
           Get in Touch
         </h2>
-        <p className="text-lg mb-8 text-gray-600">
-          Have any questions or feedback? Feel free to reach out via email or
-          fill out the form below, and we&apos;ll get back to you as soon as
-          possible.
+        <p className="text-gray-400 text-sm mb-10 leading-relaxed max-w-md">
+          Have a question or want to collaborate? Fill out the form and
+          we&apos;ll get back to you.
         </p>
 
-        {/* Contact Form */}
         <form
           onSubmit={handleSubmit}
-          className="max-w-4xl mx-auto bg-white p-8 rounded-lg shadow-lg space-y-6"
+          className="max-w-2xl space-y-6"
         >
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
             <div>
-              <label
-                htmlFor="name"
-                className="block text-gray-700 font-medium mb-2"
-              >
-                Your Name
+              <label htmlFor="name" className="block text-xs uppercase tracking-widest text-gray-500 mb-2">
+                Name
               </label>
               <input
                 type="text"
                 id="name"
                 name="name"
-                placeholder="John Doe"
+                placeholder="Your name"
                 value={formData.name}
                 onChange={handleChange}
                 required
-                className="w-full p-3 rounded-md border border-gray-300 focus:ring-2 focus:ring-yellow-500"
+                className="w-full bg-transparent border-b border-gray-700 focus:border-white outline-none text-sm text-white placeholder-gray-600 py-2 transition-colors duration-200"
               />
             </div>
             <div>
-              <label
-                htmlFor="email"
-                className="block text-gray-700 font-medium mb-2"
-              >
-                Your Email
+              <label htmlFor="email" className="block text-xs uppercase tracking-widest text-gray-500 mb-2">
+                Email
               </label>
               <input
                 type="email"
                 id="email"
                 name="email"
-                placeholder="youremail@example.com"
+                placeholder="your@email.com"
                 value={formData.email}
                 onChange={handleChange}
                 required
-                className="w-full p-3 rounded-md border border-gray-300 focus:ring-2 focus:ring-yellow-500"
+                className="w-full bg-transparent border-b border-gray-700 focus:border-white outline-none text-sm text-white placeholder-gray-600 py-2 transition-colors duration-200"
               />
             </div>
           </div>
 
           <div>
-            <label
-              htmlFor="subject"
-              className="block text-gray-700 font-medium mb-2"
-            >
+            <label htmlFor="subject" className="block text-xs uppercase tracking-widest text-gray-500 mb-2">
               Subject
             </label>
             <input
               type="text"
               id="subject"
               name="subject"
-              placeholder="Your subject"
+              placeholder="What is this about?"
               value={formData.subject}
               onChange={handleChange}
               required
-              className="w-full p-3 rounded-md border border-gray-300 focus:ring-2 focus:ring-yellow-500"
+              className="w-full bg-transparent border-b border-gray-700 focus:border-white outline-none text-sm text-white placeholder-gray-600 py-2 transition-colors duration-200"
             />
           </div>
 
           <div>
-            <label
-              htmlFor="message"
-              className="block text-gray-700 font-medium mb-2"
-            >
+            <label htmlFor="message" className="block text-xs uppercase tracking-widest text-gray-500 mb-2">
               Message
             </label>
             <textarea
               id="message"
               name="message"
-              rows="6"
+              rows="5"
               placeholder="Write your message here..."
               value={formData.message}
               onChange={handleChange}
               required
-              className="w-full p-3 rounded-md border border-gray-300 focus:ring-2 focus:ring-yellow-500"
-            ></textarea>
+              className="w-full bg-transparent border-b border-gray-700 focus:border-white outline-none text-sm text-white placeholder-gray-600 py-2 transition-colors duration-200 resize-none"
+            />
           </div>
 
-          <div className="flex justify-center">
+          <div>
             <button
               type="submit"
-              className="px-8 py-3 bg-yellow-500 text-white font-semibold rounded-md hover:bg-yellow-600 transition duration-300"
+              className="bg-white text-black text-xs font-semibold tracking-widest uppercase px-8 py-3 hover:bg-gray-200 transition-colors duration-200"
             >
               Send Message
             </button>
           </div>
 
-          {/* Status Message */}
-          {status && <p className="mt-4 text-gray-800">{status}</p>}
+          {status && (
+            <p className="text-sm text-gray-400">{status}</p>
+          )}
         </form>
       </div>
     </section>

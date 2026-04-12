@@ -13,113 +13,97 @@ const ArticleDetailPage = ({ params }) => {
 
   useEffect(() => {
     if (id && Array.isArray(articles)) {
-      const foundArticle = articles.find((item) => item._id === id);
-      setArticle(foundArticle);
+      const found = articles.find((item) => item._id === id);
+      setArticle(found);
     }
   }, [id, articles]);
 
-  const Loader = () => (
-    <div className="flex justify-center items-center h-20">
-      <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-gray-900"></div>
-    </div>
-  );
-
   if (!article) {
-    return <Loader />;
+    return (
+      <div className="flex justify-center items-center min-h-screen bg-white">
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-black" />
+      </div>
+    );
   }
 
-  const { title, author, content, coverImage, day, month, year, file } =
-    article;
-
+  const { title, author, content, coverImage, day, month, year, file } = article;
   const formattedDate = formatDate(day, month, year);
-
   const isUrduContent = (text) => /[\u0600-\u06FF]/.test(text);
-
   const isUrdu = content.some((block) =>
     block.children.some((child) => isUrduContent(child.text))
   );
 
   return (
-    <div className="w-full mx-auto py-4 px-4 md:px-8 lg:px-12">
-      <div className="flex justify-between mb-6">
-        {/* Back button - Hidden on mobile */}
-        <Link href="/articles">
-          <span className="hidden sm:inline-block buy-now-button items-center text-white transition-colors duration-300 px-4 py-2 rounded mt-4">
-            ← Back
-          </span>
-        </Link>
+    <div className="bg-white min-h-screen">
+      <div className="max-w-3xl mx-auto px-6 py-12">
 
-        {/* Download Button - Original UI */}
-        {file?.asset?.url && (
-          <a
-            href={file.asset.url}
-            download
-            className="buy-now-button items-center text-white transition-colors duration-300 px-4 py-2 rounded mt-4"
-          >
-            Download File
-          </a>
-        )}
-      </div>
-
-      <h1 className="text-2xl font-bold mb-6 text-center">{title}</h1>
-      {coverImage && (
-        <div className="flex justify-center mb-6">
-          <Image
-            src={coverImage.asset.url}
-            alt={coverImage.alt || "Article Cover"}
-            width={320}
-            height={180}
-            className="object-cover rounded-lg"
-          />
+        {/* Top nav */}
+        <div className="flex justify-between items-center mb-10">
+          <Link href="/articles">
+            <span className="text-xs uppercase tracking-widest text-gray-500 hover:text-black transition-colors duration-200">
+              ← Back
+            </span>
+          </Link>
+          {file?.asset?.url && (
+            <a
+              href={file.asset.url}
+              download
+              className="buy-now-button"
+            >
+              Download
+            </a>
+          )}
         </div>
-      )}
 
-      {/* Article Metadata */}
-      <div className="space-y-2 mb-6 px-4 text-left">
-        <p>
-          <strong>Author:</strong> {author.name}
-        </p>
-        <p>
-          <strong>Published Date:</strong> {formattedDate}
-        </p>
-      </div>
+        {/* Title */}
+        <h1 className="text-2xl md:text-3xl font-bold text-black mb-6 leading-snug">
+          {title}
+        </h1>
 
-      {/* Content Rendering */}
-      <div
-        className={`mt-6 px-4 ${isUrdu ? "is-urdu" : ""}`}
-        style={{
-          direction: isUrdu ? "rtl" : "ltr",
-          wordWrap: "break-word",
-          overflowWrap: "break-word",
-        }}
-      >
-        {content.map((block) => {
-          const { _key, children } = block;
-          return (
-            <div key={_key} className="">
-              {children.map((child, index) => {
-                const { text, marks } = child;
-                const isBold = marks.includes("strong");
+        {/* Cover image */}
+        {coverImage && (
+          <div className="flex justify-center mb-8">
+            <Image
+              src={coverImage.asset.url}
+              alt={coverImage.alt || "Article Cover"}
+              width={320}
+              height={200}
+              className="object-cover"
+            />
+          </div>
+        )}
 
-                return isBold ? (
-                  <p
-                    key={index}
-                    className={`font-bold ${isUrdu ? "leading-8" : "leading-relaxed"}`}
-                  >
-                    {text}
-                  </p>
-                ) : (
-                  <p
-                    key={index}
-                    className={`${isUrdu ? "leading-8" : "leading-relaxed"}`}
-                  >
-                    {text}
-                  </p>
-                );
-              })}
-            </div>
-          );
-        })}
+        {/* Metadata */}
+        <div className="flex flex-wrap gap-6 text-xs text-gray-500 uppercase tracking-widest mb-10 pb-8 border-b border-gray-200">
+          <span>{author.name}</span>
+          <span>{formattedDate}</span>
+        </div>
+
+        {/* Content */}
+        <div
+          className={`space-y-4 ${isUrdu ? "is-urdu" : ""}`}
+          style={{ direction: isUrdu ? "rtl" : "ltr" }}
+        >
+          {content.map((block) => {
+            const { _key, children } = block;
+            return (
+              <div key={_key}>
+                {children.map((child, i) => {
+                  const isBold = child.marks.includes("strong");
+                  return (
+                    <p
+                      key={i}
+                      className={`text-base text-gray-800 leading-relaxed ${isUrdu ? "leading-8" : ""} ${isBold ? "font-bold" : ""}`}
+                    >
+                      {child.text}
+                    </p>
+                  );
+                })}
+              </div>
+            );
+          })}
+        </div>
+
       </div>
     </div>
   );

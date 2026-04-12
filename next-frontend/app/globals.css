@@ -146,68 +146,28 @@ h6 {
 
 /* Button Styling */
 .buy-now-button {
-  padding: 0.8em 2em;
+  padding: 0.6em 1.5em;
   font-size: 11px;
   text-transform: uppercase;
   letter-spacing: 1.5px;
   font-weight: 500;
-  color: #ffffff; /* White text */
-  background-color: #274289; /* Matching dark blue */
+  color: #ffffff;
+  background-color: #000000;
   border: none;
-  border-radius: 45px;
-  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
-  transition: all 0.3s ease 0s;
+  transition: background-color 0.2s ease;
   cursor: pointer;
   outline: none;
 }
 
 .buy-now-button:hover {
-  background-color: #1a3169; /* Darker blue on hover */
-  box-shadow: 0px 15px 20px rgba(46, 229, 157, 0.4); /* Same hover effect */
+  background-color: #333333;
   color: #fff;
-  transform: translateY(-7px);
 }
 
 .buy-now-button:active {
-  transform: translateY(-1px);
+  background-color: #111111;
 }
 
-/* Navbar Button Styling */
-.navbar-button {
-  padding: 1em 2em;
-  font-size: 12px;
-  text-transform: uppercase;
-  letter-spacing: 1.5px;
-  font-weight: 500;
-  color: #000;
-  background-color: #fff;
-  border: none;
-  border-radius: 45px;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-  transition: all 0.3s ease 0s;
-  cursor: pointer;
-  outline: none;
-}
-
-.navbar-button:hover {
-  background-color: #23c483;
-  box-shadow: 0px 8px 15px rgba(46, 229, 157, 0.4);
-  color: #fff;
-  transform: translateY(-3px);
-}
-
-.navbar-button:active {
-  transform: translateY(-1px);
-}
-
-/* Morph Card */
-.card-morph {
-  border-radius: 50px;
-  background: linear-gradient(145deg, #f0f0f0, #cacaca);
-  box-shadow:
-    20px 20px 60px #bebebe,
-    -20px -20px 60px #ffffff;
-}
 
 /* Gradient Background */
 /* body {
@@ -246,32 +206,34 @@ h6 {
 /* navigation button css */
 .prev-button,
 .next-button {
-  padding: 0.8em 2em;
+  padding: 0.6em 1.5em;
   font-size: 11px;
   text-transform: uppercase;
   letter-spacing: 1.5px;
   font-weight: 500;
-  color: #ffffff; /* White text */
-  background-color: #274289; /* Matching dark blue */
+  color: #ffffff;
+  background-color: #000000;
   border: none;
-  border-radius: 45px;
-  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
-  transition: all 0.3s ease 0s;
+  transition: background-color 0.2s ease;
   cursor: pointer;
   outline: none;
 }
 
 .prev-button:hover,
 .next-button:hover {
-  background-color: #1a3169; /* Darker blue on hover */
-  box-shadow: 0px 15px 20px rgba(46, 229, 157, 0.4); /* Same hover effect */
+  background-color: #333333;
   color: #fff;
-  transform: translateY(-7px);
 }
 
 .prev-button:active,
 .next-button:active {
-  transform: translateY(-1px);
+  background-color: #111111;
+}
+
+.prev-button:disabled,
+.next-button:disabled {
+  background-color: #555555;
+  cursor: not-allowed;
 }
 
 /* loader spin card css */
@@ -404,11 +366,11 @@ article a {
   display: inline-flex;
   align-items: center;
   text-decoration: none;
-  color: #28666e;
+  color: #111111;
 }
 
 article a:focus {
-  outline: 1px dotted #28666e;
+  outline: 1px dotted #111111;
 }
 
 article a .icon {
@@ -423,12 +385,10 @@ article a .icon {
 
 article:has(:hover, :focus) {
   --img-scale: 1.1;
-  --title-color: #28666e;
+  --title-color: #111111;
   --link-icon-translate: 0;
   --link-icon-opacity: 1;
-  box-shadow:
-    rgba(0, 0, 0, 0.16) 0px 10px 36px 0px,
-    rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
+  box-shadow: 0 0 0 1px #e5e7eb;
 }
 
 /* Other styles remain as you provided */

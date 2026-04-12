@@ -1,36 +1,40 @@
-// Modal.js
 "use client";
-
 import React from "react";
 import { PortableText } from "@portabletext/react";
 import { useRecoilState } from "recoil";
-import { Line } from "./Line"; // Adjust the path if necessary
+import { Line } from "./Line";
 import { modalState } from "../atoms/modalAtom";
 
 const Modal = () => {
   const [modalContent, setModalContent] = useRecoilState(modalState);
-  if (!modalContent) return null; // If no content, don't render anything
 
-  const handleClose = () => {
-    setModalContent(null); // Close the modal by resetting state
-  };
+  if (!modalContent) return null;
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
-      <div className="bg-white rounded-lg p-6 w-11/12 md:w-2/3 lg:w-7/12 overflow-y-auto max-h-[80vh] relative">
+    <div
+      className="fixed inset-0 bg-black/60 flex items-center justify-center z-50"
+      onClick={() => setModalContent(null)}
+    >
+      <div
+        className="bg-white w-11/12 md:w-2/3 lg:w-1/2 max-h-[80vh] overflow-y-auto relative p-8"
+        onClick={(e) => e.stopPropagation()}
+      >
+        {/* Close button */}
         <button
-          className="absolute top-3 left-3 text-gray-600 hover:text-gray-900 close-button" // Position to the top left
-          onClick={handleClose}
+          className="absolute top-4 left-4 text-gray-400 hover:text-black transition-colors duration-200 text-xs uppercase tracking-widest"
+          onClick={() => setModalContent(null)}
         >
-          &times; {/* Close button */}
+          Close
         </button>
-        <h2 className="text-lg font-bold mb-4">{modalContent.title}</h2>
 
-        <div className="text-right font-bold">
-          {/* Make text bold */}
+        <h2 className="text-lg font-bold text-black mb-6 text-right" dir="rtl">
+          {modalContent.title}
+        </h2>
+
+        <div className="text-right" dir="rtl">
           <PortableText
             value={modalContent.richText}
-            components={{ line: Line }} // Using Line component for rendering
+            components={{ line: Line }}
           />
         </div>
       </div>
