@@ -1,0 +1,23 @@
+const monthMapping = {
+  January: 0,
+  February: 1,
+  March: 2,
+  April: 3,
+  May: 4,
+  June: 5,
+  July: 6,
+  August: 7,
+  September: 8,
+  October: 9,
+  November: 10,
+  December: 11,
+};
+
+export function formatDate(day, month, year) {
+  const dateObject = new Date(year, monthMapping[month], day);
+  return dateObject.toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
+}

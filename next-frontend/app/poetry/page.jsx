@@ -1,16 +1,24 @@
 "use client";
 // Poetry.js
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useRecoilValue, useRecoilState } from "recoil";
-import { parentState } from "../atoms/parentAtom"; // Adjust the path if necessary
-import { modalState } from "../atoms/modalAtom"; // Adjust the path if necessary
-import Modal from "../components/Modal"; // Adjust the path if necessary
+import { parentState, loadingState } from "../atoms/parentAtom";
+import { modalState } from "../atoms/modalAtom";
+import Modal from "../components/Modal";
+
+const PoetrySkeletonLoader = () => (
+  <div className="animate-pulse bg-gray-100 p-4 shadow-md mb-4 w-4/5 mx-auto rounded">
+    <div className="h-5 bg-gray-300 rounded w-2/3 ml-auto mb-3" />
+    <div className="h-3 bg-gray-200 rounded w-1/3 ml-auto" />
+    <div className="h-3 bg-gray-200 rounded w-1/4 mt-6" />
+  </div>
+);
 
 const Poetry = () => {
   const { poetry } = useRecoilValue(parentState);
+  const loading = useRecoilValue(loadingState);
   const [currentPage, setCurrentPage] = useState(1);
   const [fade, setFade] = useState(false);
-  const [loading, setLoading] = useState(true);
   const [modalContent, setModalContent] = useRecoilState(modalState);
 
   const itemsPerPage = 10;
@@ -20,10 +28,6 @@ const Poetry = () => {
     (currentPage - 1) * itemsPerPage,
     currentPage * itemsPerPage
   );
-
-  useEffect(() => {
-    setLoading(poetry.length === 0);
-  }, [poetry]);
 
   const handleNext = () => {
     setFade(true);
@@ -57,18 +61,12 @@ const Poetry = () => {
     setModalContent(poem);
   };
 
-  const Loader = () => (
-    <div className="flex justify-center items-center h-20">
-      <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-gray-900"></div>
-    </div>
-  );
-
   return (
     <div className="flex flex-col justify-between flex-1 p-8 text-right rtl">
       <h1 className="text-2xl font-bold">شعر و شاعری</h1>
       <div className={`mt-4 poem-container ${fade ? "fade-out" : "fade-in"}`}>
         {loading ? (
-          <Loader />
+          Array.from({ length: 5 }).map((_, i) => <PoetrySkeletonLoader key={i} />)
         ) : currentPoems.length > 0 ? (
           currentPoems.map((currentPoem) => (
             <div
@@ -90,7 +88,11 @@ const Poetry = () => {
             </div>
           ))
         ) : (
-          <p>No poetry available</p>
+          <div className="flex flex-col items-center justify-center py-16 text-gray-400">
+            <p className="text-4xl mb-4">📜</p>
+            <p className="text-lg font-medium">ابھی کوئی شعر موجود نہیں</p>
+            <p className="text-sm mt-1">No poetry has been added yet.</p>
+          </div>
         )}
       </div>
 

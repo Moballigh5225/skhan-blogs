@@ -1,13 +1,15 @@
 "use client";
 import { useState } from "react";
 import Link from "next/link";
-import { useRouter } from "next/navigation"; // Import useRouter
+import { useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 import { FaBars, FaTimes } from "react-icons/fa";
 import Image from "next/image";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const router = useRouter(); // Initialize useRouter
+  const router = useRouter();
+  const pathname = usePathname();
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
@@ -20,7 +22,7 @@ const Navbar = () => {
   };
 
   // Function to check if the link is active
-  const isActive = (path) => router.pathname === path;
+  const isActive = (path) => pathname === path;
 
   // Inline styles for active link
   const activeStyle = {

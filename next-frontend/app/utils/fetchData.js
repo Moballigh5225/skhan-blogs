@@ -1,9 +1,9 @@
 import { createClient } from "next-sanity";
 
 const client = createClient({
-  projectId: "kcnfqu28", // Replace with your actual project ID
-  dataset: "production", // The dataset name
-  apiVersion: "2022-03-07", // Sanity API version
+  projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID,
+  dataset: process.env.NEXT_PUBLIC_SANITY_DATASET,
+  apiVersion: "2024-04-12",
   useCdn: true,
 });
 
@@ -95,11 +95,6 @@ export const fetchData = async () => {
         }
       }
     `);
-
-    console.log("Fetched books:", books);
-    console.log("Fetched poetry:", poetry);
-    console.log("Fetched book reviews:", bookReviews);
-    console.log("Fetched articles:", articles);
 
     return {
       books: books || [],

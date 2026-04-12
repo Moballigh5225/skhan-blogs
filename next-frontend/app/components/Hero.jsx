@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Image from "next/image";
 
 const Hero = () => {
   const images = [
@@ -23,18 +24,22 @@ const Hero = () => {
     <section className="relative w-full h-[70vh] sm:h-[80vh] overflow-hidden rounded-lg shadow-lg">
       {/* Image Container */}
       <div
-        className="flex transition-transform duration-700 ease-in-out"
+        className="flex transition-transform duration-700 ease-in-out h-full"
         style={{
           transform: `translateX(-${currentIndex * 100}%)`,
         }}
       >
         {images.map((image, index) => (
-          <img
-            key={index}
-            src={image}
-            alt={`Slide ${index + 1}`}
-            className="w-full h-full object-contain flex-shrink-0"
-          />
+          <div key={index} className="relative flex-shrink-0" style={{ minWidth: "100%", height: "100%" }}>
+            <Image
+              src={image}
+              alt={`Slide ${index + 1}`}
+              fill
+              className="object-contain"
+              priority={index === 0}
+              sizes="100vw"
+            />
+          </div>
         ))}
       </div>
 

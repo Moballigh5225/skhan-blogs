@@ -7,8 +7,8 @@ export default defineConfig({
   name: 'default',
   title: 'SkhanBlog',
 
-  projectId: 'kcnfqu28', // Hard-coded project ID
-  dataset: 'production', // Hard-coded dataset
+  projectId: process.env.SANITY_PROJECT_ID || 'kcnfqu28',
+  dataset: process.env.SANITY_DATASET || 'production',
 
   plugins: [structureTool(), visionTool()],
 

@@ -4,6 +4,7 @@ import { useRecoilValue } from "recoil";
 import { parentState } from "../../atoms/parentAtom";
 import Link from "next/link";
 import Image from "next/image";
+import { formatDate } from "../../utils/formatDate";
 
 const ArticleDetailPage = ({ params }) => {
   const { id } = params;
@@ -30,27 +31,7 @@ const ArticleDetailPage = ({ params }) => {
   const { title, author, content, coverImage, day, month, year, file } =
     article;
 
-  const monthMapping = {
-    January: 0,
-    February: 1,
-    March: 2,
-    April: 3,
-    May: 4,
-    June: 5,
-    July: 6,
-    August: 7,
-    September: 8,
-    October: 9,
-    November: 10,
-    December: 11,
-  };
-
-  const dateObject = new Date(year, monthMapping[month], day);
-  const formattedDate = dateObject.toLocaleDateString("en-US", {
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-  });
+  const formattedDate = formatDate(day, month, year);
 
   const isUrduContent = (text) => /[\u0600-\u06FF]/.test(text);
 

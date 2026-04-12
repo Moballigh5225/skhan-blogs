@@ -20,10 +20,9 @@ const ContactUs = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // Set your EmailJS userID, serviceID, and templateID
-    const serviceID = "your_service_id"; // Replace with your service ID
-    const templateID = "your_template_id"; // Replace with your template ID
-    const userID = "your_user_id"; // Replace with your user ID
+    const serviceID = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID;
+    const templateID = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID;
+    const userID = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY;
 
     emailjs.sendForm(serviceID, templateID, e.target, userID).then(
       (response) => {
@@ -49,7 +48,7 @@ const ContactUs = () => {
         </h2>
         <p className="text-lg mb-8 text-gray-600">
           Have any questions or feedback? Feel free to reach out via email or
-          fill out the form below, and we'll get back to you as soon as
+          fill out the form below, and we&apos;ll get back to you as soon as
           possible.
         </p>
 

@@ -4,6 +4,7 @@ import { parentState, loadingState } from "../atoms/parentAtom";
 import Link from "next/link";
 import Image from "next/image";
 import SkeletonLoader from "../components/SkeletonLoader";
+import { formatDate } from "../utils/formatDate";
 
 const Articles = () => {
   const { articles } = useRecoilValue(parentState);
@@ -36,29 +37,8 @@ const Articles = () => {
     <div className="container mx-auto flex flex-col justify-start py-4 px-2 md:px-4 lg:px-8">
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
         {articles.map((article) => {
-          // Construct the published date
-          const monthMapping = {
-            January: 0,
-            February: 1,
-            March: 2,
-            April: 3,
-            May: 4,
-            June: 5,
-            July: 6,
-            August: 7,
-            September: 8,
-            October: 9,
-            November: 10,
-            December: 11,
-          };
-
           const { day, month, year } = article;
-          const dateObject = new Date(year, monthMapping[month], day);
-          const formattedDate = dateObject.toLocaleDateString("en-US", {
-            year: "numeric",
-            month: "long",
-            day: "numeric",
-          });
+          const formattedDate = formatDate(day, month, year);
 
           return (
             <article
