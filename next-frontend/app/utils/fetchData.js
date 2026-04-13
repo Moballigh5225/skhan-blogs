@@ -39,15 +39,26 @@ export const fetchData = async () => {
       *[_type == "poetry"]{
         _id,
         title,
-        day,       
-        month,     
-        year,      
+        titleUrdu,
+        day,
+        month,
+        year,
         author->{
           _id,
           name
         },
-        "richText": richText[] {  
+        "richText": richText[]{
           ...,
+        },
+        "richTextUrdu": richTextUrdu[]{
+          ...,
+        },
+        "featuredImage": featuredImage{
+          asset->{
+            _id,
+            url
+          },
+          alt
         }
       }
     `);
@@ -57,6 +68,7 @@ export const fetchData = async () => {
       *[_type == "bookReview"]{
         _id,
         title,
+        titleUrdu,
         author,
         edition,
         publishedBy,
@@ -67,6 +79,16 @@ export const fetchData = async () => {
         },
         "content": content[]{
           ...,
+        },
+        "contentUrdu": contentUrdu[]{
+          ...,
+        },
+        "coverImage": coverImage{
+          asset->{
+            _id,
+            url
+          },
+          alt
         }
       }
     `);
@@ -76,6 +98,7 @@ export const fetchData = async () => {
       *[_type == "articles"]{
         _id,
         title,
+        titleUrdu,
         day,
         month,
         year,
@@ -88,7 +111,17 @@ export const fetchData = async () => {
         "content": content[]{
           ...,
         },
-        "file": file { // Fetch the file link
+        "contentUrdu": contentUrdu[]{
+          ...,
+        },
+        "featuredImage": featuredImage{
+          asset->{
+            _id,
+            url
+          },
+          alt
+        },
+        "file": file{
           asset->{
             url
           }

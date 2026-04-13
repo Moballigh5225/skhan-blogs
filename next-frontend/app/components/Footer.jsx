@@ -8,7 +8,6 @@ const NAV_LINKS = [
   { path: "/about", label: "About" },
   { path: "/articles", label: "Writings" },
   { path: "/books", label: "Books" },
-  { path: "/#contact", label: "Contact" },
 ];
 
 const SOCIAL_LINKS = [
@@ -17,20 +16,30 @@ const SOCIAL_LINKS = [
   { href: "#", icon: FaMedium, label: "Medium" },
 ];
 
+const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
 const Footer = () => {
   const [email, setEmail] = useState("");
   const [submitted, setSubmitted] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState("");
 
-  const handleSubscribe = (e) => {
+  const handleSubscribe = async (e) => {
     e.preventDefault();
+    if (!emailRegex.test(email)) {
+      setError("Please enter a valid email address.");
+      return;
+    }
+    setIsLoading(true);
     // TODO: wire up newsletter service (e.g. Mailchimp, ConvertKit)
+    await new Promise((r) => setTimeout(r, 800));
+    setIsLoading(false);
     setSubmitted(true);
     setEmail("");
-    setTimeout(() => setSubmitted(false), 4000);
   };
 
   return (
-    <footer className="bg-black text-white">
+    <footer className="bg-black text-white border-t border-white/10">
       <div className="mx-auto max-w-5xl px-6 pt-16 pb-8 md:pt-20 md:pb-10">
 
         {/* Top: tagline + newsletter */}
@@ -44,30 +53,44 @@ const Footer = () => {
           </div>
 
           {/* Newsletter signup */}
-          <div className="md:max-w-sm w-full">
+          <div id="newsletter" className="md:max-w-sm w-full">
             <p className="text-xs uppercase tracking-widest text-gray-500 mb-3">
               Newsletter
             </p>
             <p className="text-sm text-gray-400 mb-5 leading-relaxed">
               Occasional essays, book notes, and quiet thoughts — straight to your inbox.
             </p>
-            <form onSubmit={handleSubscribe} className="flex flex-col sm:flex-row gap-3">
-              <input
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="your@email.com"
-                required
-                aria-label="Email address for newsletter"
-                className="flex-1 bg-transparent border-b border-white/20 focus:border-white outline-none text-sm text-white placeholder-gray-600 py-2 transition-colors duration-200"
-              />
-              <button
-                type="submit"
-                className="bg-white text-black text-xs font-semibold tracking-widest uppercase px-6 py-2.5 hover:bg-gray-200 transition-colors duration-200 whitespace-nowrap"
-              >
-                {submitted ? "Subscribed!" : "Subscribe"}
-              </button>
-            </form>
+            {submitted ? (
+              <p className="text-sm text-white leading-relaxed">
+                You&apos;re in. Watch your inbox for the next essay.
+              </p>
+            ) : (
+              <>
+                <form onSubmit={handleSubscribe} className="flex flex-col sm:flex-row gap-3">
+                  <input
+                    type="email"
+                    value={email}
+                    onChange={(e) => { setEmail(e.target.value); setError(""); }}
+                    placeholder="your@email.com"
+                    aria-label="Email address for newsletter"
+                    className="flex-1 bg-transparent border-b border-white/20 focus:border-white outline-none text-sm text-white placeholder-gray-600 py-2 transition-colors duration-200"
+                  />
+                  <button
+                    type="submit"
+                    disabled={isLoading}
+                    className="bg-white text-black text-xs font-semibold tracking-widest uppercase px-6 py-2.5 hover:bg-gray-200 transition-colors duration-200 whitespace-nowrap disabled:opacity-60 disabled:cursor-not-allowed"
+                  >
+                    {isLoading ? "Subscribing…" : "Subscribe"}
+                  </button>
+                </form>
+                {error && (
+                  <p className="mt-2 text-xs text-red-400">{error}</p>
+                )}
+                <p className="mt-4 text-xs text-gray-600 leading-relaxed">
+                  No spam. Occasional essays only. Unsubscribe anytime.
+                </p>
+              </>
+            )}
           </div>
         </div>
 

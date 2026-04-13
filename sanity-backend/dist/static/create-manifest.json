@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "createdAt": "2026-04-13T00:32:05.560Z",
+  "workspaces": [
+    {
+      "name": "default",
+      "title": "SkhanBlog",
+      "basePath": "/",
+      "dataset": "production",
+      "schema": "ed562b41.create-schema.json"
+    }
+  ]
+}

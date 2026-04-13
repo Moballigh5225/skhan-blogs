@@ -25,7 +25,33 @@ const Navbar = () => {
       <div className="max-w-6xl mx-auto px-6">
         <div className="flex justify-between items-center py-5">
 
-          {/* Logo */}
+          {/* Desktop nav links — left */}
+          <div className="hidden md:flex items-center gap-8">
+            {NAV_LINKS.map(({ path, label }) => (
+              <Link
+                key={path}
+                href={path}
+                className={`text-sm transition-colors duration-200 ${
+                  isActive(path)
+                    ? "text-white border-b border-white pb-0.5"
+                    : "text-gray-400 hover:text-gray-200"
+                }`}
+              >
+                {label}
+              </Link>
+            ))}
+          </div>
+
+          {/* Mobile hamburger — left on mobile */}
+          <button
+            onClick={() => setIsOpen(!isOpen)}
+            className="md:hidden text-gray-400 hover:text-white transition-colors duration-200"
+            aria-label="Toggle menu"
+          >
+            {isOpen ? <FaTimes size={20} /> : <FaBars size={20} />}
+          </button>
+
+          {/* Logo — right */}
           <Link href="/" className="flex-shrink-0">
             <Image
               src="/images/urdualphabet.svg"
@@ -35,32 +61,6 @@ const Navbar = () => {
               style={{ transform: "rotate(-90deg)", filter: "invert(1)" }}
             />
           </Link>
-
-          {/* Desktop nav links */}
-          <div className="hidden md:flex items-center gap-8">
-            {NAV_LINKS.map(({ path, label }) => (
-              <Link
-                key={path}
-                href={path}
-                className={`text-sm transition-colors duration-200 ${
-                  isActive(path)
-                    ? "text-white"
-                    : "text-gray-400 hover:text-gray-200"
-                }`}
-              >
-                {label}
-              </Link>
-            ))}
-          </div>
-
-          {/* Mobile hamburger */}
-          <button
-            onClick={() => setIsOpen(!isOpen)}
-            className="md:hidden text-gray-400 hover:text-white transition-colors duration-200"
-            aria-label="Toggle menu"
-          >
-            {isOpen ? <FaTimes size={20} /> : <FaBars size={20} />}
-          </button>
         </div>
       </div>
 
@@ -75,7 +75,7 @@ const Navbar = () => {
                 onClick={() => setIsOpen(false)}
                 className={`py-2.5 text-sm transition-colors duration-200 ${
                   isActive(path)
-                    ? "text-white"
+                    ? "text-white font-medium"
                     : "text-gray-400 hover:text-gray-200"
                 }`}
               >

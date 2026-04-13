@@ -4,6 +4,7 @@ import { useRecoilValue, useRecoilState } from "recoil";
 import { parentState, loadingState } from "../atoms/parentAtom";
 import { modalState } from "../atoms/modalAtom";
 import Modal from "../components/Modal";
+import Image from "next/image";
 
 const PoetrySkeletonLoader = () => (
   <div className="animate-pulse border border-gray-200 p-4 mb-3 w-4/5 mx-auto">
@@ -70,19 +71,31 @@ const Poetry = () => {
             currentPoems.map((poem) => (
               <div
                 key={poem._id}
-                className="border border-gray-200 p-4 mb-3 w-4/5 mx-auto cursor-pointer hover:border-gray-400 transition-colors duration-200 text-right"
-                dir="rtl"
+                className="border border-gray-200 mb-3 w-4/5 mx-auto cursor-pointer hover:border-gray-400 transition-colors duration-200 overflow-hidden"
                 onClick={() => setModalContent(poem)}
               >
-                <h2 className="text-base font-semibold text-black mb-1">
-                  {poem.title}
-                </h2>
-                <p className="text-xs text-gray-500">
-                  {poem.author?.name || "Unknown Author"}
-                </p>
-                <p className="text-xs text-gray-400 mt-4 text-left" dir="ltr">
-                  {formatDate(poem.day, poem.month, poem.year)}
-                </p>
+                {poem.featuredImage?.asset?.url && (
+                  <div className="relative w-full" style={{ aspectRatio: "1200/630" }}>
+                    <Image
+                      src={poem.featuredImage.asset.url}
+                      alt={poem.featuredImage.alt || poem.title}
+                      fill
+                      className="object-cover"
+                      sizes="80vw"
+                    />
+                  </div>
+                )}
+                <div className="p-4 text-right" dir="rtl">
+                  <h2 className="text-base font-semibold text-black mb-1">
+                    {poem.titleUrdu || poem.title}
+                  </h2>
+                  <p className="text-xs text-gray-500">
+                    {poem.author?.name || "Unknown Author"}
+                  </p>
+                  <p className="text-xs text-gray-400 mt-4 text-left" dir="ltr">
+                    {formatDate(poem.day, poem.month, poem.year)}
+                  </p>
+                </div>
               </div>
             ))
           ) : (

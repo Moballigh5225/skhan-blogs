@@ -2,6 +2,7 @@
 import { useRecoilValue } from "recoil";
 import { parentState, loadingState } from "../atoms/parentAtom";
 import Link from "next/link";
+import Image from "next/image";
 
 const MONTH_ORDER = {
   January: 1, February: 2, March: 3, April: 4, May: 5, June: 6,
@@ -55,26 +56,50 @@ const HomeLatestPosts = () => {
               <Link
                 key={article._id}
                 href={`/articles/${article._id}`}
-                className="group bg-white border border-gray-100 rounded-2xl p-5 shadow-sm hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300 block"
+                className="group bg-white border border-gray-100 rounded-2xl overflow-hidden shadow-sm hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300 block"
               >
-                {formatDate(article.day, article.month, article.year) && (
-                  <p className="text-xs text-gray-300 uppercase tracking-widest mb-3">
-                    {formatDate(article.day, article.month, article.year)}
-                  </p>
+                {article.featuredImage?.asset?.url ? (
+                  <div className="relative w-full" style={{ aspectRatio: "1200/630" }}>
+                    <Image
+                      src={article.featuredImage.asset.url}
+                      alt={article.featuredImage.alt || article.title}
+                      fill
+                      className="object-cover"
+                      sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                    />
+                  </div>
+                ) : (
+                  <div className="w-full bg-gray-50 flex items-center justify-center" style={{ aspectRatio: "1200/630" }}>
+                    <span className="text-gray-200 text-xs uppercase tracking-widest">No Image</span>
+                  </div>
                 )}
-                <h3 className="text-base font-semibold text-gray-900 mb-3 leading-snug">
-                  {article.title}
-                </h3>
-                {getExcerpt(article.content) && (
-                  <p className="text-sm text-gray-400 leading-relaxed">
-                    {getExcerpt(article.content)}
-                  </p>
-                )}
+                <div className="p-5">
+                  {formatDate(article.day, article.month, article.year) && (
+                    <p className="text-xs text-gray-300 uppercase tracking-widest mb-3">
+                      {formatDate(article.day, article.month, article.year)}
+                    </p>
+                  )}
+                  <h3 className="text-base font-semibold text-gray-900 mb-3 leading-snug">
+                    {article.title}
+                  </h3>
+                  {getExcerpt(article.content) && (
+                    <p className="text-sm text-gray-400 leading-relaxed">
+                      {getExcerpt(article.content)}
+                    </p>
+                  )}
+                </div>
               </Link>
             ))}
           </div>
         ) : (
-          <p className="text-gray-400 text-sm">No posts yet.</p>
+          <div className="min-h-[80px] flex items-center">
+            <p className="text-sm text-gray-400">
+              First post coming soon —{" "}
+              <a href="#newsletter" className="underline underline-offset-2 hover:text-gray-700 transition-colors duration-200">
+                subscribe to get it in your inbox.
+              </a>
+            </p>
+          </div>
         )}
 
         {!loading && articles.length > 3 && (

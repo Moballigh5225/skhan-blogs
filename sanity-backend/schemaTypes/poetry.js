@@ -5,14 +5,57 @@ export default defineType({
   title: 'Poetry',
   type: 'document',
   fields: [
+    // ── English ──────────────────────────────────────────────
     defineField({
       name: 'title',
-      title: 'Title',
+      title: 'Title (English)',
       type: 'string',
       validation: (Rule) => Rule.required().min(1).max(150),
     }),
     defineField({
-      name: 'author', // Reference to the Author schema
+      name: 'richText',
+      title: 'Content (English)',
+      type: 'blockContent',
+      validation: (Rule) => Rule.required(),
+    }),
+
+    // ── Urdu ─────────────────────────────────────────────────
+    defineField({
+      name: 'titleUrdu',
+      title: 'Title (اردو)',
+      type: 'string',
+      description: 'Urdu title — will be displayed when reader selects Urdu',
+    }),
+    defineField({
+      name: 'richTextUrdu',
+      title: 'Content (اردو)',
+      type: 'blockContent',
+      description: 'Urdu body — will be displayed when reader selects Urdu',
+    }),
+
+    // ── Featured Image ────────────────────────────────────────
+    defineField({
+      name: 'featuredImage',
+      title: 'Featured Image',
+      type: 'image',
+      description: 'Recommended resolution: 1200 × 630 px (16:9). Shown on cards and inside the poem modal.',
+      options: {
+        hotspot: true,
+      },
+      fields: [
+        defineField({
+          name: 'alt',
+          type: 'string',
+          title: 'Alternative Text',
+          description: 'Describe the image for accessibility.',
+          validation: (Rule) => Rule.max(150),
+        }),
+      ],
+    }),
+
+    // ── Meta ─────────────────────────────────────────────────
+    defineField({
+      name: 'author',
       title: 'Author',
       type: 'reference',
       to: [{type: 'author'}],
@@ -21,13 +64,13 @@ export default defineType({
     defineField({
       name: 'day',
       title: 'Day',
-      type: 'number', // Numeric day field
+      type: 'number',
       validation: (Rule) => Rule.required().min(1).max(31),
     }),
     defineField({
       name: 'month',
       title: 'Month',
-      type: 'string', // String month field
+      type: 'string',
       options: {
         list: [
           {title: 'January', value: 'January'},
@@ -49,14 +92,8 @@ export default defineType({
     defineField({
       name: 'year',
       title: 'Year',
-      type: 'number', // Numeric year field
+      type: 'number',
       validation: (Rule) => Rule.required().min(1900).max(new Date().getFullYear()),
-    }),
-    defineField({
-      name: 'richText',
-      title: 'Rich Text',
-      type: 'blockContent', // For rich text editing
-      validation: (Rule) => Rule.required(),
     }),
   ],
 })

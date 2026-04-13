@@ -39,37 +39,43 @@ const Articles = () => {
             return (
               <article
                 key={article._id}
-                className="bg-white border border-gray-200 p-4 flex flex-col"
+                className="bg-white border border-gray-100 rounded-2xl flex flex-col overflow-hidden shadow-sm hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300"
               >
-                {article.coverImage && (
-                  <div className="flex justify-center mb-4">
+                {article.featuredImage?.asset?.url ? (
+                  <div className="relative w-full" style={{ aspectRatio: "1200/630" }}>
                     <Image
-                      src={article.coverImage.asset.url}
-                      alt={article.coverImage.alt || "Article Cover"}
-                      width={120}
-                      height={180}
+                      src={article.featuredImage.asset.url}
+                      alt={article.featuredImage.alt || article.title}
+                      fill
                       className="object-cover"
+                      sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
                     />
                   </div>
+                ) : (
+                  <div className="w-full bg-gray-100 flex items-center justify-center" style={{ aspectRatio: "1200/630" }}>
+                    <span className="text-gray-300 text-xs uppercase tracking-widest">No Image</span>
+                  </div>
                 )}
-                <h3 className="text-sm font-semibold text-black mb-2 leading-snug">
-                  {article.title}
-                </h3>
-                <p className="text-xs text-gray-500 mb-1">
-                  {article.author.name}
-                </p>
-                <p className="text-xs text-gray-400 mb-4">
-                  {formattedDate}
-                </p>
-                <div className="mt-auto">
-                  <Link href={`/articles/${article._id}`}>
-                    <span className="buy-now-button inline-flex items-center gap-2">
-                      Read More
-                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" width="12" height="12">
-                        <path fillRule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clipRule="evenodd" />
-                      </svg>
-                    </span>
-                  </Link>
+                <div className="p-4 flex flex-col flex-1">
+                  <h3 className="text-sm font-semibold text-black mb-2 leading-snug">
+                    {article.title}
+                  </h3>
+                  <p className="text-xs text-gray-500 mb-1">
+                    {article.author.name}
+                  </p>
+                  <p className="text-xs text-gray-400 mb-4">
+                    {formattedDate}
+                  </p>
+                  <div className="mt-auto">
+                    <Link href={`/articles/${article._id}`}>
+                      <span className="buy-now-button inline-flex items-center gap-2">
+                        Read More
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" width="12" height="12">
+                          <path fillRule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clipRule="evenodd" />
+                        </svg>
+                      </span>
+                    </Link>
+                  </div>
                 </div>
               </article>
             );
