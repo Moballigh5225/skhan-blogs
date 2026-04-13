@@ -19,19 +19,32 @@ const getExcerpt = (content) => {
   return text.length > 90 ? text.substring(0, 90) + "…" : text;
 };
 
+const TypeBadge = ({ type }) => (
+  <span
+    className={`inline-block text-[10px] uppercase tracking-widest font-semibold px-2.5 py-1 rounded-full mb-3 ${
+      type === "article"
+        ? "bg-black text-white"
+        : "bg-gray-100 text-gray-600"
+    }`}
+  >
+    {type === "article" ? "Article" : "Book Review"}
+  </span>
+);
+
 const HomeLatestPosts = () => {
-  const { articles } = useRecoilValue(parentState);
+  const { articles, bookReviews } = useRecoilValue(parentState);
   const loading = useRecoilValue(loadingState);
 
-  const sorted = [...articles].sort((a, b) => {
+  const combined = [
+    ...articles.map((a) => ({ ...a, _type: "article" })),
+    ...bookReviews.map((r) => ({ ...r, _type: "review" })),
+  ].sort((a, b) => {
     if ((b.year || 0) !== (a.year || 0)) return (b.year || 0) - (a.year || 0);
     const bm = MONTH_ORDER[b.month] || 0;
     const am = MONTH_ORDER[a.month] || 0;
     if (bm !== am) return bm - am;
     return (b.day || 0) - (a.day || 0);
-  });
-
-  const latest = sorted.slice(0, 3);
+  }).slice(0, 3);
 
   return (
     <section className="bg-gray-50">
@@ -50,46 +63,51 @@ const HomeLatestPosts = () => {
               </div>
             ))}
           </div>
-        ) : latest.length > 0 ? (
+        ) : combined.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-            {latest.map((article) => (
-              <Link
-                key={article._id}
-                href={`/articles/${article._id}`}
-                className="group bg-white border border-gray-100 rounded-2xl overflow-hidden shadow-sm hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300 block"
-              >
-                {article.featuredImage?.asset?.url ? (
-                  <div className="relative w-full" style={{ aspectRatio: "1200/630" }}>
-                    <Image
-                      src={article.featuredImage.asset.url}
-                      alt={article.featuredImage.alt || article.title}
-                      fill
-                      className="object-cover"
-                      sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                    />
-                  </div>
-                ) : (
-                  <div className="w-full bg-gray-50 flex items-center justify-center" style={{ aspectRatio: "1200/630" }}>
-                    <span className="text-gray-200 text-xs uppercase tracking-widest">No Image</span>
-                  </div>
-                )}
-                <div className="p-5">
-                  {formatDate(article.day, article.month, article.year) && (
-                    <p className="text-xs text-gray-300 uppercase tracking-widest mb-3">
-                      {formatDate(article.day, article.month, article.year)}
-                    </p>
+            {combined.map((item) => {
+              const image = item._type === "article" ? item.featuredImage : item.coverImage;
+              const href = item._type === "article" ? `/articles/${item._id}` : `/review/${item._id}`;
+              return (
+                <Link
+                  key={item._id}
+                  href={href}
+                  className="group bg-white border border-gray-100 rounded-2xl overflow-hidden shadow-sm hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300 block"
+                >
+                  {image?.asset?.url ? (
+                    <div className="relative w-full" style={{ aspectRatio: "1200/630" }}>
+                      <Image
+                        src={image.asset.url}
+                        alt={image.alt || item.title}
+                        fill
+                        className="object-cover"
+                        sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                      />
+                    </div>
+                  ) : (
+                    <div className="w-full bg-gray-50 flex items-center justify-center" style={{ aspectRatio: "1200/630" }}>
+                      <span className="text-gray-200 text-xs uppercase tracking-widest">No Image</span>
+                    </div>
                   )}
-                  <h3 className="text-base font-semibold text-gray-900 mb-3 leading-snug">
-                    {article.title}
-                  </h3>
-                  {getExcerpt(article.content) && (
-                    <p className="text-sm text-gray-400 leading-relaxed">
-                      {getExcerpt(article.content)}
-                    </p>
-                  )}
-                </div>
-              </Link>
-            ))}
+                  <div className="p-5">
+                    <TypeBadge type={item._type} />
+                    {formatDate(item.day, item.month, item.year) && (
+                      <p className="text-xs text-gray-300 uppercase tracking-widest mb-2">
+                        {formatDate(item.day, item.month, item.year)}
+                      </p>
+                    )}
+                    <h3 className="text-base font-semibold text-gray-900 mb-3 leading-snug">
+                      {item.title}
+                    </h3>
+                    {getExcerpt(item.content) && (
+                      <p className="text-sm text-gray-400 leading-relaxed">
+                        {getExcerpt(item.content)}
+                      </p>
+                    )}
+                  </div>
+                </Link>
+              );
+            })}
           </div>
         ) : (
           <div className="min-h-[80px] flex items-center">
@@ -102,13 +120,19 @@ const HomeLatestPosts = () => {
           </div>
         )}
 
-        {!loading && articles.length > 3 && (
-          <div className="mt-10">
+        {!loading && (articles.length + bookReviews.length) > 3 && (
+          <div className="mt-10 flex gap-6">
             <Link
               href="/articles"
               className="text-xs uppercase tracking-widest text-gray-400 hover:text-black transition-colors duration-200"
             >
-              All posts →
+              All articles →
+            </Link>
+            <Link
+              href="/review"
+              className="text-xs uppercase tracking-widest text-gray-400 hover:text-black transition-colors duration-200"
+            >
+              All reviews →
             </Link>
           </div>
         )}
